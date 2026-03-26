@@ -82,8 +82,8 @@ O(n) where n is input size.
 ## Space complexity
 * We need:
 
-* The original list → O(n)
-* The pigeonhole (count) array → O(k)
+* i)The original list → O(n)
+* ii)The pigeonhole (count) array → O(k)
 
 * So total extra space is O(k) (the pigeonholes).
 * That’s the trade-off: pigeonhole sort uses more memory than something like quicksort, but it’s really fast when k is small. For my tests I kept numbers between 1 and 1000 so k never got bigger than 1000.
