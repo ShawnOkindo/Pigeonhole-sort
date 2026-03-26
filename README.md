@@ -1,3 +1,6 @@
+# Okindo Shawn Okindo
+# EB3/68734/23
+
 
 # Pigeonhole-sort
 * It is a sorting algorithm that is used preferably when the number of elements and the range of elements are nearly the same.
