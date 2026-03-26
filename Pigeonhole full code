@@ -1,0 +1,76 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    
+    //Enter the number of numbers you want to sort.
+    int n;
+    cout << "Enter the number of integers: ";
+    cin >> n;
+
+    if (n <= 0) {
+        cout << "Sorted list in descending order: " << std::endl;
+        cout << "Total comparisons: 0" << std::endl;
+        cout << "Total swaps: 0" << std::endl;
+        return 0;
+    }
+
+    vector<int> arr(n);
+    cout << "Enter the " << n << " integers (separated by spaces): ";
+    for (int i = 0; i < n; i++) {
+        std::cin >> arr[i];
+    }
+
+    // Step 1: Find min and max (count comparisons)
+    int min_val = arr[0];
+    int max_val = arr[0];
+    long long comparisons = 0;
+
+    for (int i = 1; i < n; i++) {
+        comparisons++;                    // comparison for min
+        if (arr[i] < min_val) {
+            min_val = arr[i];
+        }
+        comparisons++;                    // comparison for max
+        if (arr[i] > max_val) {
+            max_val = arr[i];
+        }
+    }
+
+    // Step 2: Create pigeonholes
+    long long range = (long long)max_val - min_val + 1;
+    if (range > 10000000) {
+        cout << "Range too big for memory! Try smaller numbers." << std::endl;
+        return 1;
+    }
+    vector<int> pigeonholes(range, 0);
+
+    // Step 3: Put each number into its pigeonhole
+    
+    for (int i = 0; i < n; i++) {
+        pigeonholes[arr[i] - min_val]++;
+    }
+
+    // Step 4: Build the sorted list in DESCENDING order (no swaps)
+    long long swaps = 0;
+    int index = 0;
+    for (long long i = range - 1; i >= 0; i--) {
+        for (int count = 0; count < pigeonholes[i]; count++) {
+            arr[index++] = min_val + (int)i;
+        }
+    }
+
+    // Output the sorted list
+    std::cout << "\nSorted list in descending order: ";
+    for (int i = 0; i < n; i++) {
+        std::cout << arr[i];
+        if (i < n - 1) std::cout << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Total comparisons: " << comparisons << std::endl;
+    std::cout << "Total swaps: " << swaps << std::endl;
+
+    return 0;
+}
